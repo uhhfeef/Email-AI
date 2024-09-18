@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Email AI",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": ["*://mail.google.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": ["activeTab","storage", "downloads", "alarms"],
+  "background": {
+      "service_worker": "background.js"
+    }
+}
