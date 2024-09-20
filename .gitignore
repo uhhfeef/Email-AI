@@ -1,4 +1,10 @@
 gmail_data-6-months_new.csv
+emails.db
+client_secret.json
+token.json
+email_read_model.joblib
+email_vectorizer.joblib
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
