@@ -9,8 +9,6 @@ import regex as re
 import os
 import sqlite3
 
-app = Flask(__name__)
-
 df = pd.read_csv('gmail_data-6-months_new.csv')
 
 # Loading the model
@@ -36,22 +34,6 @@ sender_stats = df.groupby('From').agg({
 
 df = df.merge(sender_stats, on='From', how='left')
 print(df.head())
-# Home route
-@app.route('/')
-def home():
-    return "Works!"
-
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    data = request.get_json()
-    from_address = data['from_address']
-    print(from_address)
-    subject = data['subject']
-    body = data['body']
-    prediction, probability = predict_email_read(from_address, subject, body)
-    # return f"Prediction: {'Will be read' if prediction == 1 else 'Will not be read'}\nProbability of being read: {probability:.2f}"
-    return f"{probability:.2f}"
 
 
 # Function to predict on a new email
