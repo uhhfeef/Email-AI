@@ -116,18 +116,6 @@ def clean_text(text):
     text = re.sub(r'<img[^>]*>', '', text)  # Remove image tags
     return text.strip()
 
-def predict(subject, body, sender):
-    data = {
-    "from_address": sender,
-    "subject": subject,
-    "body": body
-    }
-    url = "http://localhost:5001/predict"
-    headers = {'Content-Type': 'application/json'}
-
-    res = requests.post(url, data=json.dumps(data), headers=headers)
-    return res.text
-
 
 if __name__ == '__main__':
     app.run(port=5002)
