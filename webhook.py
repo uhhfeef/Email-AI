@@ -15,7 +15,6 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 CORS(app)
 
-# Load credentials (you'll need to implement this based on your auth setup)
 creds = Credentials.from_authorized_user_file('token.json', ['https://www.googleapis.com/auth/gmail.readonly'])
 gmail_service = build('gmail', 'v1', credentials=creds)
 
@@ -84,9 +83,7 @@ def process_email(msg_id):
         
         conn = create_database()
         insert_email_data(conn, msg_id, sender, subject, clean_body, prediction)
-        
-        # Here you can add code to store the email details or trigger your prediction model
-        
+                
     except Exception as e:
         logging.error(f"Error processing email {msg_id}: {e}")
 
