@@ -9,11 +9,11 @@ import regex as re
 import os
 import sqlite3
 
-df = pd.read_csv('gmail_data-6-months_new.csv')
+df = pd.read_csv('../data/gmail_data-6-months.csv')
 
 # Loading the model
-loaded_model = joblib.load('email_read_model.joblib')
-loaded_vectorizer = joblib.load('email_vectorizer.joblib')
+loaded_model = joblib.load('../models/email_read_model.joblib')
+loaded_vectorizer = joblib.load('../models/email_vectorizer.joblib')
 
 # Function to remove URLs from text
 def remove_urls_numbers(text):

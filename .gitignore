@@ -8,7 +8,9 @@ old/
 gmail_data*
 notes.md
 *.spec
-.bin/
+bin/
+data/ 
+config/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

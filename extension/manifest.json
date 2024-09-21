@@ -9,8 +9,5 @@
     }
   ],
   "permissions": ["activeTab","storage", "downloads", "alarms", "identity", "identity.email"],
-  "host_permissions": ["https://www.googleapis.com/*"],
-  "background": {
-      "service_worker": "background.js"
-    }
+  "host_permissions": ["https://www.googleapis.com/*"]
 }

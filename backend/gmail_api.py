@@ -10,34 +10,11 @@ import sqlite3
 import datetime
 import requests
 import json
+from database import insert_email_data, create_database 
 from predict import predict_email_read
 
 # Define the scope for reading emails
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
-
-def create_database():
-    conn = sqlite3.connect('emails.db')
-    cursor = conn.cursor()
-    # Create a table for storing email data
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS EmailData (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            message_id TEXT NOT NULL,
-            sender TEXT NOT NULL,
-            subject TEXT NOT NULL,
-            body TEXT NOT NULL,
-            prediction INT NOT NULL
-        )
-    ''')
-    conn.commit()
-    return conn
-
-def insert_email_data(conn, message_id, sender, subject, body, prediction):
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO EmailData (message_id, sender, subject, body, prediction) VALUES (?, ?, ?, ?, ?)', 
-                   (message_id, sender, subject, body, prediction))
-    conn.commit()
-
 
 def clean_text(text):
     # Remove links and images using regex
@@ -61,19 +38,19 @@ def predict(subject, body, sender):
 def main():
     creds = None
     # Check if token.json exists to store user credentials
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    if os.path.exists('../config/token.json'):
+        creds = Credentials.from_authorized_user_file('../config/token.json', SCOPES)
 
     # If there are no valid credentials, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('client_secret.json', SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file('../config/client_secret.json', SCOPES)
             creds = flow.run_local_server(port=0)
 
         # Save the credentials for the next run
-        with open('token.json', 'w') as token:
+        with open('../config/token.json', 'w') as token:
             token.write(creds.to_json())
 
     try:

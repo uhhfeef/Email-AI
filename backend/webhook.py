@@ -15,7 +15,7 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 CORS(app)
 
-creds = Credentials.from_authorized_user_file('token.json', ['https://www.googleapis.com/auth/gmail.readonly'])
+creds = Credentials.from_authorized_user_file('../config/token.json', ['https://www.googleapis.com/auth/gmail.readonly'])
 gmail_service = build('gmail', 'v1', credentials=creds)
 
 # Dictionary to store recently processed message IDs
