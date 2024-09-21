@@ -4,6 +4,8 @@ client_secret.json
 token.json
 email_read_model.joblib
 email_vectorizer.joblib
+old/
+gmail_data*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
