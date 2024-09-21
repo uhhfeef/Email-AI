@@ -22,3 +22,11 @@ def insert_email_data(conn, message_id, sender, subject, body, prediction):
     cursor.execute('INSERT INTO EmailData (message_id, sender, subject, body, prediction) VALUES (?, ?, ?, ?, ?)', 
                    (message_id, sender, subject, body, prediction))
     conn.commit()
+
+def flip_data(conn):
+    curser = conn.cursor()
+    
+    query = f"SELECT * FROM EmailData ORDER BY id ASC"
+    
+    cursor.execute(query)
+    conn.commit()

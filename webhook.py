@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 import requests
 from database import insert_email_data, create_database 
 from flask_cors import CORS
-
+from predict import predict_email_read
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -72,7 +72,9 @@ def process_email(msg_id):
         body = get_email_body(message)
         clean_body = clean_text(body)
         
-        prediction = predict(subject, clean_body, sender)
+        # prediction = predict(subject, clean_body, sender)
+        
+        prediction = predict_email_read(sender, subject, clean_body)
         
         logging.info(f"New Update Email - Message ID: {msg_id}")
         logging.info(f"From: {sender}")
@@ -94,7 +96,7 @@ def get_recent_predictions():
     cursor = conn.cursor()
     cursor.execute("SELECT prediction FROM EmailData ORDER BY ROWID DESC LIMIT 50")
     predictions = cursor.fetchall()
-    print(predictions)
+    # print(predictions)
     conn.close()
     # Convert the list of tuples to a list of floats
     prediction_values = [float(p[0]) for p in predictions]

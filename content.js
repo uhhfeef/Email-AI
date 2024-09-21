@@ -4,9 +4,6 @@ async function addPredictionIndicator() {
     const emailRows = document.querySelectorAll('.zA');
     
     for (const row of emailRows) {
-        // chrome.storage.local.remove('recentPredictions', function() {
-        //     console.log('Stored predictions cleared');
-        // });
         if (!row.querySelector('.prediction')) {
             const predictionSpan = document.createElement('span');
             predictionSpan.className = 'prediction';

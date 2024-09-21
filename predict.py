@@ -66,7 +66,7 @@ def predict_email_read(from_address, subject, body):
     from_freq = df[df['From'] == domain_name]['from_frequency'].values[0] if domain_name in df['From'].values else 0
     from_read_rate = df[df['From'] == domain_name]['from_read_rate'].values[0] if domain_name in df['From'].values else 0
     email_length = len(clean_body)
-    print(from_freq, from_read_rate, email_length)
+    # print(from_freq, from_read_rate, email_length)
 
     # Process body
     tfidf_body = loaded_vectorizer.transform([clean_body])
@@ -84,13 +84,14 @@ def predict_email_read(from_address, subject, body):
         pd.DataFrame(tfidf_subject.toarray(), columns=loaded_vectorizer.get_feature_names_out())
     ], axis=1)
 
-    email_features.head()
-
     # Predict
     prediction = loaded_model.predict(email_features)
     probability = loaded_model.predict_proba(email_features)[0][1]  # Probability of being read
 
-    return prediction[0], probability
+    # return prediction[0], probability
+    return probability
+
+
 
 if __name__ == '__main__':
     app.run(port=5001)

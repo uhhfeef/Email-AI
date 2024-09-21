@@ -10,6 +10,7 @@ import sqlite3
 import datetime
 import requests
 import json
+from predict import predict_email_read
 
 # Define the scope for reading emails
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
@@ -91,9 +92,11 @@ def main():
         if not messages:
             print('No messages found in Updates category.')
         else:
-            for message in messages:
+            message_ids = [msg['id'] for msg in messages]
+            
+            for msg_id in message_ids[49::-1]:  # Start from index 49 and go backwards
                 # Get the ID of the last message
-                msg_id = message['id']
+                # msg_id = message['id']
                 message = service.users().messages().get(userId='me', id=msg_id).execute()
 
                 # print(message.keys())
@@ -127,8 +130,9 @@ def main():
                 body = clean_text(full_text)
                 # print(cleaned_text)
                 
-                prediction = predict(subject, body, sender)
-                
+                # prediction = predict(subject, body, sender)
+                prediction = predict_email_read(sender, subject, body)
+                print(sender)
                 insert_email_data(conn, msg_id, sender, subject, body, prediction)
                 print(email_count)
                 email_count+=1
