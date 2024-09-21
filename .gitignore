@@ -7,7 +7,6 @@ email_vectorizer.joblib
 old/
 gmail_data*
 notes.md
-# Ignore the bin folder
 *.spec
 bin/
 
