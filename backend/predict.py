@@ -74,6 +74,3 @@ def predict_email_read(from_address, subject, body):
     return probability
 
 
-
-if __name__ == '__main__':
-    app.run(port=5001)
