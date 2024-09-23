@@ -11,6 +11,8 @@ notes.md
 bin/
 data/ 
 config/
+Scripts/
+pyvenv.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
